@@ -1,0 +1,40 @@
+[    7.954332] dump_stack_lvl+0x34/0x44 
+[    7.954651] panic+0x102/0x27b 
+[    7.954756] ? _printk+0x53/0x6a 
+[    7.954847] sysrq_handle_crash+0x11/0x20 
+[    7.954953] __handle_sysrq.cold+0x43/0x11b 
+[    7.955065] write_sysrq_trigger+0x1f/0x30 
+[    7.955167] proc_reg_write+0x4c/0x90 
+[    7.955267] vfs_write+0xb4/0x290 
+[    7.955362] ksys_write+0x5a/0xd0 
+[    7.955453] do_syscall_64+0x3b/0x90 
+[    7.955553] entry_SYSCALL_64_after_hwframe+0x46/0xb0 
+[    7.955773] RIP: 0033:0x4a8531
+[ 7.955999] Code: e0 ff ff ff f7 d8 64 89 02 48 c7 c0 ff ff ff ff eb b3 0f 1f 80 00 00 00 00 8b 05 d2 26 1e 00 85 c0 75 16 b8 01 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 57 c3 66 0f 1f 44 00 00 8
+All code
+========
+   0:	e0 ff                	loopne 0x1
+   2:	ff                   	(bad)  
+   3:	ff f7                	push   %rdi
+   5:	d8 64 89 02          	fsubs  0x2(%rcx,%rcx,4)
+   9:	48 c7 c0 ff ff ff ff 	mov    $0xffffffffffffffff,%rax
+  10:	eb b3                	jmp    0xffffffffffffffc5
+  12:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  19:	8b 05 d2 26 1e 00    	mov    0x1e26d2(%rip),%eax        # 0x1e26f1
+  1f:	85 c0                	test   %eax,%eax
+  21:	75 16                	jne    0x39
+  23:	b8 01 00 00 00       	mov    $0x1,%eax
+  28:	0f 05                	syscall 
+  2a:*	48 3d 00 f0 ff ff    	cmp    $0xfffffffffffff000,%rax		<-- trapping instruction
+  30:	77 57                	ja     0x89
+  32:	c3                   	ret    
+  33:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  39:	08                   	.byte 0x8
+
+Code starting with the faulting instruction
+===========================================
+   0:	48 3d 00 f0 ff ff    	cmp    $0xfffffffffffff000,%rax
+   6:	77 57                	ja     0x5f
+   8:	c3                   	ret    
+   9:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   f:	08                   	.byte 0x8

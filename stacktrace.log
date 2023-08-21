@@ -1,0 +1,13 @@
+[    7.954332]  dump_stack_lvl+0x34/0x44
+[    7.954651]  panic+0x102/0x27b
+[    7.954756]  ? _printk+0x53/0x6a
+[    7.954847]  sysrq_handle_crash+0x11/0x20
+[    7.954953]  __handle_sysrq.cold+0x43/0x11b
+[    7.955065]  write_sysrq_trigger+0x1f/0x30
+[    7.955167]  proc_reg_write+0x4c/0x90
+[    7.955267]  vfs_write+0xb4/0x290
+[    7.955362]  ksys_write+0x5a/0xd0
+[    7.955453]  do_syscall_64+0x3b/0x90
+[    7.955553]  entry_SYSCALL_64_after_hwframe+0x46/0xb0
+[    7.955773] RIP: 0033:0x4a8531
+[    7.955999] Code: e0 ff ff ff f7 d8 64 89 02 48 c7 c0 ff ff ff ff eb b3 0f 1f 80 00 00 00 00 8b 05 d2 26 1e 00 85 c0 75 16 b8 01 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 57 c3 66 0f 1f 44 00 00 8
